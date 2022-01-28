@@ -6,7 +6,7 @@ A ready-made Discord bot.
 * trl           (Google Translate) (Usage: trl [Text] [Language])
 * play          (Playing audio from YouTube) (Usage: [Link])
 * stop          (Stop playing audio)
-* yap           (Yandex Images) (Send in chat random image for request)) (Usage: yap [Request])
+* yap           (Yandex Images) (Send in chat random image for request) (Usage: yap [Request])
 
 ### Installation and configuration
 * Install Python 3 (latest)  
