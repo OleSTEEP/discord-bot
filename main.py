@@ -44,8 +44,7 @@ async def play(ctx, *link):
 
 @client.command()
 async def stop(ctx):
-    await yt_command.stopping(player=ctx.guild.voice_client)
-    await ctx.send(f'Stopped by {ctx.author}')
+    await yt_command.stopping(ctx, player=ctx.guild.voice_client)
 
 
 @client.command()

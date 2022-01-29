@@ -1,6 +1,12 @@
 from pytube import YouTube
 import pytube.exceptions
 import discord
+import time
+
+
+def length(seconds):
+    time_format = time.strftime("%H:%M:%S", time.gmtime(seconds))
+    return time_format
 
 
 async def playing(ctx, link):
@@ -8,7 +14,8 @@ async def playing(ctx, link):
     try:
         stream = yt.streams.get_audio_only()
     except pytube.exceptions.AgeRestrictedError:
-        await ctx.send(f'"{yt.title}" cannot be played due to age restriction')
+        embed_obj = discord.Embed(description=f'"{yt.title}" cannot be played due to age restriction', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
         return
 
     stream.download(output_path='temp', filename=f'temp.{str(ctx.author.voice.channel.id)}')
@@ -21,16 +28,23 @@ async def playing(ctx, link):
         try:
             player.play(discord.FFmpegOpusAudio(source=f"temp/temp.{str(ctx.author.voice.channel.id)}"))
         except discord.errors.ClientException:
-            await ctx.send("Already playing audio.")
+            embed_obj = discord.Embed(description="Already playing audio")
+            await ctx.send(embed=embed_obj)
             return
     else:
-        await ctx.send("Please connect to a voice channel.")
+        embed_obj = discord.Embed(description="Please connect to a voice channel", color=0xe01b24)
+        await ctx.send(embed=embed_obj)
         return
 
-    embed_obj = discord.Embed(title='YouTube', description=f'Playing "{yt.title}"')
+    embed_obj = discord.Embed(title='YouTube', color=0xe01b24)
+    embed_obj.add_field(name="Track", value=f'[{yt.title}]({yt.watch_url})', inline=True)
+    embed_obj.add_field(name="Track Length", value=length(yt.length), inline=True)
+    embed_obj.add_field(name="Request Author", value=ctx.author, inline=False)
     embed_obj.set_image(url=yt.thumbnail_url)
     await ctx.send(embed=embed_obj)
 
 
-async def stopping(player):
+async def stopping(ctx, player):
     player.stop()
+    embed_obj = discord.Embed(description=f'Stopped by {ctx.author}', color=0xe01b24)
+    await ctx.send(embed=embed_obj)
