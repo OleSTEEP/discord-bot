@@ -6,6 +6,7 @@ from modules import yap_command
 from modules import yt_command
 from modules import config
 from pytube import Playlist
+from pytube import Search
 
 client = commands.Bot(command_prefix=config.parse_prefix(), help_command=None)
 
@@ -45,6 +46,14 @@ async def play(ctx, *link):
 async def stop(ctx):
     await yt_command.stopping(player=ctx.guild.voice_client)
     await ctx.send(f'Stopped by {ctx.author}')
+
+
+@client.command()
+async def search(ctx, *, search_query):
+    search_var = Search(search_query)
+    video = search_var.results[0].video_id
+    link = f'https://www.youtube.com/watch?v={video}'
+    await play(ctx, link)
 
 
 client.run(config.parse_token())
