@@ -1,15 +1,13 @@
-# Options
-token = 'NzA3OTgxMzEyMzE2NjcwMDMy.XrQs-g.f5U5PHEemRDYZ2BtcTvSl89QZo4'
-prefix = 'o!'
 
 from discord.ext import commands
-from commands import info_command
-from commands import trl_command
-from commands import yap_command
-from commands import yt_command
+from modules import info_command
+from modules import trl_command
+from modules import yap_command
+from modules import yt_command
+from modules import config
 from pytube import Playlist
 
-client = commands.Bot(command_prefix=prefix, help_command=None)
+client = commands.Bot(command_prefix=config.parse_prefix(), help_command=None)
 
 
 @client.event
@@ -46,6 +44,7 @@ async def play(ctx, *link):
 @client.command()
 async def stop(ctx):
     await yt_command.stopping(player=ctx.guild.voice_client)
+    await ctx.send(f'Stopped by {ctx.author}')
 
 
-client.run(token)
+client.run(config.parse_token())
