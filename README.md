@@ -1,5 +1,5 @@
-# Discord_Bot
-A ready-made Discord bot.
+# discord-bot
+A ready-made Discord bot
 
 ### Bot Features (Commands)
 
@@ -12,7 +12,7 @@ A ready-made Discord bot.
 * Install Python 3 (latest)  
 * Install `ffmpeg` 
 * On the command line `pip install -r /path/to/bot/folder/requirements.txt`  
-* Enter your bot token in `main.py`
+* Enter your bot token in `config.ini`
 
 ### Start
-For start the bot, you need launch `main.py`
+For launch the bot, you need launch `main.py`
