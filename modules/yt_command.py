@@ -40,7 +40,7 @@ async def playing(ctx, link):
     embed_obj.add_field(name="Track", value=f'[{yt.title}]({yt.watch_url})', inline=True)
     embed_obj.add_field(name="Track Length", value=length(yt.length), inline=True)
     embed_obj.add_field(name="Request Author", value=ctx.author, inline=False)
-    embed_obj.set_image(url=yt.thumbnail_url)
+    embed_obj.set_thumbnail(url=yt.thumbnail_url)
     await ctx.send(embed=embed_obj)
 
 
