@@ -11,7 +11,7 @@ async def playing(ctx, link):
         await ctx.send(f'"{yt.title}" cannot be played due to age restriction')
         return
 
-    stream.download(output_path='downloads', filename='youtube_temp')
+    stream.download(output_path='temp', filename=f'temp.{str(ctx.author.voice.channel.id)}')
 
     if ctx.author.voice.channel:
         if not ctx.guild.voice_client:
@@ -19,7 +19,7 @@ async def playing(ctx, link):
         else:
             player = ctx.guild.voice_client
         try:
-            player.play(discord.FFmpegOpusAudio(source="downloads/youtube_temp"))
+            player.play(discord.FFmpegOpusAudio(source=f"temp/temp.{str(ctx.author.voice.channel.id)}"))
         except discord.errors.ClientException:
             await ctx.send("Already playing audio.")
             return
@@ -32,5 +32,5 @@ async def playing(ctx, link):
     await ctx.send(embed=embed_obj)
 
 
-def stopping(player):
+async def stopping(player):
     player.stop()

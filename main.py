@@ -45,7 +45,7 @@ async def play(ctx, *link):
 
 @client.command()
 async def stop(ctx):
-    yt_command.stopping(player=ctx.guild.voice_client)
+    await yt_command.stopping(player=ctx.guild.voice_client)
 
 
 client.run(token)
