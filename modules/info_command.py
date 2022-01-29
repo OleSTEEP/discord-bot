@@ -3,7 +3,8 @@ import discord
 
 
 def embed_return(client):
+    ram = round(memory_usage()[0])
+    ping = round(client.latency * 1000)
     embed_obj = discord.Embed(title='Info',
-                              description=
-                              f'Working... RAM Usage: {round(memory_usage()[0])} MB, ping: {round(client.latency * 1000)} ms')
+                              description=f'Working... RAM Usage: {ram} MB, ping: {ping} ms')
     return embed_obj
