@@ -45,6 +45,30 @@ async def playing(ctx, link):
 
 
 async def stopping(ctx, player):
-    player.stop()
-    embed_obj = discord.Embed(description=f'Stopped by {ctx.author}', color=0xe01b24)
-    await ctx.send(embed=embed_obj)
+    if player.is_playing() == 1:
+        player.stop()
+        embed_obj = discord.Embed(description=f'Stopped by {ctx.author}', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
+    else:
+        embed_obj = discord.Embed(description='Player already stopped', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
+
+
+async def pausing(ctx, player):
+    if player.is_paused() == 0:
+        player.pause()
+        embed_obj = discord.Embed(description=f'Paused by {ctx.author}', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
+    else:
+        embed_obj = discord.Embed(description='Player already paused', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
+
+
+async def resuming(ctx, player):
+    if player.is_playing() == 0:
+        player.resume()
+        embed_obj = discord.Embed(description=f'Resumed by {ctx.author}', color=0xe01b24)
+        await ctx.send(embed=embed_obj)
+    else:
+        embed_obj = discord.Embed(description='Player already resumed', color=0xe01b24)
+        await ctx.send(embed=embed_obj)

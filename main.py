@@ -48,6 +48,16 @@ async def stop(ctx):
 
 
 @client.command()
+async def pause(ctx):
+    await yt_command.pausing(ctx, player=ctx.guild.voice_client)
+
+
+@client.command()
+async def resume(ctx):
+    await yt_command.resuming(ctx, player=ctx.guild.voice_client)
+
+
+@client.command()
 async def search(ctx, *, search_query):
     search_var = Search(search_query)
     video = search_var.results[0].video_id
